@@ -1,0 +1,284 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap');
+
+/* font-family: 'Playfair Display', serif;  <- For headings
+   font-family: 'Montserrat', sans-serif;  <- For body text
+*/
+
+/* --- Global Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* This is what makes the smooth scrolling work */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    background-color: #fdfaf6; /* A warm, off-white */
+    color: #7ea7cf; /* Body Text */
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #00167a; /* headings */
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d7ccc8; /* Light brown underline */
+    display: inline-block;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* --- Header --- */
+header {
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://via.placeholder.com/1500x800.png?text=Our+Wedding+Photo') no-repeat center center/cover;
+    /* Replace the URL above with your own hero image */
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #00167a;
+}
+
+header p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+header .date-time {
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
+
+header .venue-name {
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* --- Navigation --- */
+nav {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #00167a;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #a1887f; /* Lighter brown on hover */
+    border-bottom: 2px solid #a1887f;
+}
+
+/* --- Entourage Section --- */
+.entourage-columns {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Allows columns to stack on small screens */
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.column {
+    width: 45%;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.column h3 {
+    text-align: center;
+    color: #00167a;
+    border-bottom: 1px solid #bcaaa4;
+    padding-bottom: 5px;
+}
+
+.column ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.column li {
+    background: #fff;
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    font-size: 1rem;
+}
+
+.entourage-other {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* --- Gallery Section --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* --- Location / Map Section --- */
+.map-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- Gallery Modal (Lightbox) --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: zoom 0.3s ease;
+}
+
+@keyframes zoom {
+    from {transform: translate(-50%, -50%) scale(0.5);}
+    to {transform: translate(-50%, -50%) scale(1);}
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav li {
+        margin: 5px 0;
+    }
+    .entourage-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+    .column {
+        width: 90%;
+    }
+}
