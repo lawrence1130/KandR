@@ -1,115 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding | Krijon & Rose</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>K & R — Wedding Invitation</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Audio / music -->
+  <div id="audio-controls">
+    <audio id="bg-music" loop preload="none">
+      <!-- Replace with your music file path -->
+      <source src="Audio/131 Kon Unsay Gihiusa sa Diyos.mp3" type="audio/mpeg" />
+      Your browser does not support audio.
+    </audio>
+    <button id="music-toggle" aria-label="Play/pause music">Play music</button>
+  </div>
 
-    <header>
-        <p>You are joyfully invited to the wedding of</p>
-        <h1>Krijon & Rose</h1>
-        <p class="date-time">Tuesday, December 16, 2025 | 4:00 PM</p>
-        <p class="venue-name">The Grand Oak Estate</p>
-    </header>
+  <!-- Main invitation stage -->
+  <main id="invitation-stage">
+    <!-- Left (blue) and Right (pink) panels that form the envelope cover -->
+    <div class="envelope-panel left-panel" id="leftPanel" role="button" aria-label="Open left panel"></div>
+    <div class="envelope-panel right-panel" id="rightPanel" role="button" aria-label="Open right panel"></div>
 
-    <nav>
-        <ul>
-            <li><a href="#details">Details</a></li>
-            <li><a href="#entourage">Entourage</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#location">Location</a></li>
-        </ul>
-    </nav>
+    <!-- Content inside the opened invitation -->
+    <section id="inside" aria-hidden="true">
+      <!-- center KR logo placeholder (you can replace with your PNG) -->
+      <div id="logo">
+        <!-- If you have a PNG "kr-logo.png", put it in images/ and change the src below -->
+        <img id="kr-logo" src="Images/kr.png" alt="K & R logo (replace with PNG)" />
+      </div>
 
-    <main>
-        <section id="details">
-            <h2>Join Us</h2>
-            <p>We are so excited to celebrate our special day with you. Please join us for an evening of love, laughter, and happily ever after.</p>
-            <p>Reception to follow the ceremony at the same location.</p>
-        </section>
+      <!-- Page container (horizontally scrollable pages) -->
+      <div id="pages" class="snap-x">
+        <!-- Page 1: Cover page -->
+        <article class="page cover-page">
+          <div class="cover-left">
+            <h1 class="names">Krijon<br>&amp;<br>Rose</h1>
+            <p class="invite-line">with full hearts, we joyfully invite you to their wedding</p>
+          </div>
 
-        <section id="entourage">
-            <h2>The Entourage</h2>
-            <div class="entourage-other">
-                <p><strong>Parents of the Bride:</strong></p><p>Michael and Linda Smith</p>
-                <p><strong>Parents of the Groom:</strong> James and Susan Johnson</p>
-                <p><strong>Flower Girl:</strong> Lily Smith</p>
-                <p><strong>Ring Bearer:</strong> Leo Davis</p>
+          <div class="cover-right">
+            <div class="date-stack">
+              <div class="date-num">12</div>
+              <div class="date-num highlight">16</div>
+              <div class="date-num">25</div>
             </div>
-            <div class="entourage-columns">
-                <div class="column">
-                    <h3>Bridesmaids</h3>
-                    <ul>
-                        <li><strong>Sarah Chen</strong> (Maid of Honor)</li>
-                        <li>Jessica Lee</li>
-                        <li>Emily Pham</li>
-                        <li>Maria Gonzalez</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h3>Groomsmen</h3>
-                    <ul>
-                        <li><strong>Mark Davis</strong> (Best Man)</li>
-                        <li>Chris Evans</li>
-                        <li>David Kim</li>
-                        <li>Ryan Thompson</li>
-                    </ul>
-                </div>
+          </div>
+
+          <!-- Polaroids scattered (absolute positioned) -->
+          <div class="polaroids" aria-hidden="true">
+            <div class="polaroid" style="--r:-6deg; left:6%; top:4%;">
+              <img src="Images/IMG_20251110_180127_704.jpg" alt="Polaroid 1" />
             </div>
-            <div class="entourage-other">
-                <p><strong>Parents of the Bride:</strong> Michael and Linda Smith</p>
-                <p><strong>Parents of the Groom:</strong> James and Susan Johnson</p>
-                <p><strong>Flower Girl:</strong> Lily Smith</p>
-                <p><strong>Ring Bearer:</strong> Leo Davis</p>
+            <div class="polaroid" style="--r:12deg; left:8%; top:20%;">
+              <img src="Images/IMG_20251110_180215_058.jpg (1)" alt="Polaroid 2" />
             </div>
-        </section>
-
-        <section id="gallery">
-            <h2>Our Story</h2>
-            <div class="gallery-grid">
-                <img src="Images/IMG_20251110_175903_699.jpg" alt="Prenup photo 1">
-                <img src="Images/IMG_20251110_180101_861.jpg" alt="Prenup photo 2">
-                <img src="Images/IMG_20251110_180144_651.jpg" alt="Prenup photo 3">
-                <img src="Images/IMG_20251110_180306_811.jpg" alt="Prenup photo 4">
-                <img src="Images/IMG_20251110_180136_410.jpg" alt="Prenup photo 5">
-                <img src="Images/IMG_20251110_180342_317.jpg" alt="Prenup photo 6">
+            <div class="polaroid" style="--r:-10deg; left:2%; top:60%;">
+              <img src="Images/IMG_20251110_180425_483.jpg" alt="Polaroid 3" />
             </div>
-        </section>
-
-        <section id="location">
-            <h2>The Venue</h2>
-            <p><strong>The Grand Oak Estate</strong></p>
-            <p>123 Wedding Lane, Loveville, CA 90210</p>
-            <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.6881297599023!2d-118.40395332454013!3d34.05199697315579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc04d6349c13%3A0x76de482b8130831!2sBeverly%20Hills%20City%20Hall!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" 
-                    width="600" 
-                    height="450" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            <div class="polaroid" style="--r:8deg; left:12%; top:76%;">
+              <img src="Images/photo_2025-11-11_03-16-36.jpg" alt="Polaroid 4" />
             </div>
-        </section>
-    </main>
+          </div>
+        </article>
 
-    <footer>
-        <p>We can't wait to see you there! ❤️</p>
-    </footer>
+        <!-- Page 2: Details & Entourage -->
+        <article class="page details-page" id="detailsPage">
+          <div class="details-inner">
+            <h2 class="section-title">Wedding Details</h2>
+            <div class="venue">
+              <h3>Venue</h3>
+              <p>Kingdom Hall of Jehovah's Witnesses<br>P-3 Apo Macote Malaybalay City</p>
+              <p><strong>Reception:</strong> P-5 Pangi-an Apo Macote Malaybalay City, Lacaba Residence</p>
+            </div>
 
-    <div id="modal" class="modal">
-        <span class="close-button">&times;</span>
-        <img class="modal-content" id="modal-img">
-    </div>
+            <h3 class="section-title small">The Entourage</h3>
+            <div class="entourage">
+              <!-- Long list — scrollable vertically inside this page -->
+              <div class="entourage-column">
+                <p><strong>Groom</strong><br>Krijon Mark Alegata</p>
+                <p><strong>Bride</strong><br>Rose Lacaba</p>
+                <p><strong>Officiating Minister</strong><br>Deleitch Devera</p>
+                <p><strong>Speaker</strong><br>Levi Falliado</p>
+                <p><strong>Chairman</strong><br>Junimer Lacaba</p>
+                <p><strong>Opening Prayer</strong><br>Deleitch Devera</p>
+                <p><strong>Parents of the Groom</strong><br>Dennis & Marilyn Alegata</p>
+                <p><strong>Parents of the Bride</strong><br>Rolando & Cecily Lacaba</p>
+                <p><strong>Witnesses of the Groom</strong><br>Michael Rivera, Mizraim Rivera</p>
+                <p><strong>Witnesses of the Bride</strong><br>June Carlo Casinillo, Novy Grace Casinillo</p>
+                <p><strong>Bestman</strong><br>Steaven Dela Cruz</p>
+                <p><strong>Maid of Honor</strong><br>Dalia Lacaba</p>
+                <p><strong>Groomsmen</strong><br>Charry Jay Pescadero, Sam Lawrence Dadang, Adrian Salarda, Prince Gerald Alegata, Gindi Magdadaro, Wristen Ken Alegata</p>
+                <p><strong>Bridesmaids</strong><br>Cheril Cabigas, Cherian Cabigas, GLEZZIEL MANUEL, Lovely Grace Lacaba, Althea Salarda, Blessy Lacaba</p>
+                <p><strong>Flower Girls</strong><br>Xia Alegata, Apple Alegata, Jhemichi Myrtle Reyes, Kristel Manuel, Xyriel Jean Cuenca, Zhealen Fery Lacaba</p>
+                <p><strong>Ring Bearer</strong><br>Dion Vicariato</p>
+                <p><strong>Bible Bearer</strong><br>Cyrell James Cuenca</p>
+                <p><strong>Usher</strong><br>Carlou Tom Canales, Marjun Espinosa, Rameloyd Bonghanoy, Sidney Java, Juneriel Kim Montecillo, Kent Natividad, TJ Alegata, Earl John Alegata, John Dave Dadang, Ramil Micabalo, Neil Jade Pescadero</p>
+                <p><strong>Usherettes</strong><br>Charissa Sacal, Ivy Jane Sacal, Jainah Keight Rondon, Novem Rivera, Frenzy Quiño, Majolyn Asucan, Gwen Quiño, Khyziel Mae Salarda, Charlyn Hope Sabanal, Aivie Umol, Jerlyn Pitogo, Elma Micabalo</p>
+                <p><strong>Audio/Video</strong><br>Elson Vincent, Joe Torino, Jude Cutamora</p>
+                <p><strong>Director of the Ceremony</strong><br>Alex Bantilan, Razzia Jane Bantilan</p>
+                <p><strong>Director of the Feast</strong><br>Michael Micabalo</p>
+              </div>
+            </div>
+          </div>
 
-    <script src="function.js"></script>
+          <!-- Right edge: more polaroids for visual balance (optional) -->
+          <aside class="right-polaroids" aria-hidden="true">
+            <div class="polaroid" style="--r:-4deg;">
+              <img src="Images/IMG_20251110_180306_811.jpg" alt="Polaroid a" />
+            </div>
+            <div class="polaroid" style="--r:6deg;">
+              <img src="Images/photo_2025-11-11_03-16-27.jpg" alt="Polaroid b" />
+            </div>
+          </aside>
+        </article>
+      </div>
 
+      <!-- Page navigation hint -->
+      <nav id="pager">
+        <button id="openBtn" class="cta">Open Invitation</button>
+        <div class="page-dots" aria-hidden="true">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </nav>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
