@@ -71,6 +71,102 @@
             border: 1px solid var(--color-blue);
         }
 
+        /* --- DRESS CODE & MOTIF STYLES --- */
+        .dresscode-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .swatch-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 2rem 0 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .swatch-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .swatch-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 12px;
+            border: 3px solid white;
+            transition: transform 0.3s ease;
+        }
+        
+        .swatch-circle:hover { transform: scale(1.1); }
+
+        .swatch-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            font-weight: bold;
+        }
+
+        .attire-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default: Stacked on mobile */
+            gap: 2rem;
+        }
+
+        .attire-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            border-top: 5px solid var(--color-gold);
+        }
+
+        .attire-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .attire-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-dark);
+        }
+
+        .attire-desc {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .imgsize {
+            max-width: 150px;
+            height: auto;
+            margin: 1rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .imgsize1 {
+            max-width: 200px;
+            height: auto;
+            margin: 1rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+
+        .attire-note {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
         /* --- RESET & BASE (Mobile Default) --- */
         * {
             margin: 0;
@@ -497,6 +593,11 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 3rem;
             }
+            /* Dress Code - TWO COLUMNS FOR DESKTOP */
+            .attire-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
 
             /* Entourage Columns */
             .entourage-two-col {
@@ -564,6 +665,8 @@
         
     </section>
 
+    
+
     <!-- Details Section -->
     <section id="details" class="section-padding">
         <div class="container">
@@ -596,6 +699,58 @@
                     <a href="https://maps.app.goo.gl/QaaGKSvJ1EEStnsu6" target="_blank" class="btn-map">
                         <i class="fas fa-map-marker-alt"></i> View Map
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DRESS CODE & MOTIF SECTION -->
+    <section id="dresscode" class="section-padding" style="background: #fafafa;">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-subtitle">Guide</span>
+                <h2 class="section-title">Motif & Dress Code</h2>
+                <p style="color: #666; margin-bottom: 2rem;">We would love to see you in our wedding colors.</p>
+            </div>
+
+            <div class="dresscode-content reveal">
+                <!-- Color Swatches -->
+                <div class="swatch-row">
+                    <div class="swatch-item">
+                        <div class="swatch-circle" style="background-color: var(--color-blush);"></div>
+                        <span class="swatch-name">Blush</span>
+                    </div>
+                    <div class="swatch-item">
+                        <div class="swatch-circle" style="background-color: var(--color-blue);"></div>
+                        <span class="swatch-name">Powder Blue</span>
+                    </div>
+                    <div class="swatch-item">
+                        <div class="swatch-circle" style="background-color: #f5f5dc;"></div>
+                        <span class="swatch-name">Beige</span>
+                    </div>
+                    <div class="swatch-item">
+                        <div class="swatch-circle" style="background-color: var(--color-gold);"></div>
+                        <span class="swatch-name">Gold</span>
+                    </div>
+                </div>
+
+                <!-- Attire Cards (Side by Side on Desktop) -->
+                <div class="attire-grid">
+                    <div class="attire-card">
+                        <div class="attire-icon" style="color: var(--color-blue-dark);"><i class="fas fa-male"></i></div>
+                        <h3 class="attire-title">Gentlemen</h3>
+                        <img class="imgsize1"src="Images/male1.png" onerror="this.src='https://placehold.co/150x200/B0D0FF/222?text=Suit+or+Barong'" alt="Male Dress Code Example">
+                        <p class="attire-desc">Suit or Barong Tagalog</p>
+                        <p class="attire-note">Black Slacks & Formal Shoes</p>
+                    </div>
+
+                    <div class="attire-card">
+                        <div class="attire-icon" style="color: var(--color-blush-dark);"><i class="fas fa-female"></i></div>
+                        <h3 class="attire-title">Ladies</h3>
+                        <img class="imgsize"src="Images/female1.png" onerror="this.src='https://placehold.co/150x200/F4C2C2/222?text=Gown+or+Dress'" alt="Female Dress Code Example">
+                        <p class="attire-desc">Long Gown or Cocktail Dress</p>
+                        <p class="attire-note">Shades of Blush Pink or Powder Blue</p>
+                    </div>
                 </div>
             </div>
         </div>
