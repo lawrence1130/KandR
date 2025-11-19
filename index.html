@@ -1,133 +1,859 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>K & R — Wedding Invitation</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krijon & Rose | The Wedding</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            /* Dominant Colors */
+            --color-blush: #F4C2C2; 
+            --color-blush-dark: #e0a5a5;
+            --color-blush-bg: #fff5f5;
+            
+            --color-blue: #B0D0FF;
+            --color-blue-dark: #8cb6f0;
+            --color-blue-bg: #f0f6ff;
+
+            --color-white: #FFFFFF;
+            --color-offwhite: #fafafa;
+            --color-gold: #C5A059;
+            --color-text-dark: #4a4a4a;
+            --color-text-muted: #666666;
+            
+            --font-script: 'Great Vibes', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+
+            --shadow-card: 0 10px 25px -5px rgba(0,0,0,0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Add Button Styles for Map Pins */
+        .btn-map {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+            padding: 10px 25px;
+            background: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-map:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Specific colors for buttons based on parent card */
+        .card-blush .btn-map { 
+            color: var(--color-blush-dark); 
+            border: 1px solid var(--color-blush);
+        }
+        
+        .card-blue .btn-map { 
+            color: var(--color-blue-dark); 
+            border: 1px solid var(--color-blue);
+        }
+
+        /* --- RESET & BASE (Mobile Default) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text-dark);
+            background-color: var(--color-offwhite);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px; /* Base size for mobile */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            color: var(--color-text-dark);
+            line-height: 1.3;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            width: 100%;
+            padding: 0 20px;
+            margin: 0 auto;
+        }
+
+        .text-center { text-align: center; }
+        .section-padding { padding: 4rem 0; }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-subtitle {
+            font-family: var(--font-script);
+            color: var(--color-gold);
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            display: block;
+            line-height: 1;
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: var(--color-text-dark);
+            text-decoration: none;
+        }
+
+        /* Mobile Menu Styles */
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--color-white);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: height 0.4s ease;
+            list-style: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-links.active {
+            height: 250px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-links li {
+            margin: 15px 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .nav-links.active li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-dark);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-text-dark);
+        }
+
+        /* --- HERO SECTION (Dominant Gradient) --- */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-blush) 0%, #ffffff 50%, var(--color-blue) 100%);
+            padding-top: 70px;
+        }
+
+        .hero-content {
+            padding: 20px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            margin: 0 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem; /* Mobile size */
+            font-family: var(--font-script);
+            margin-bottom: 0.5rem;
+            color: var(--color-text-dark);
+        }
+
+        .hero-sub {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .hero-date {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-text-dark);
+            border-top: 1px solid var(--color-gold);
+            border-bottom: 1px solid var(--color-gold);
+            padding: 10px 20px;
+            display: inline-block;
+            margin-top: 1rem;
+            background: rgba(255,255,255,0.8);
+        }
+
+        /* --- DETAILS SECTION (Color Cards) --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Stacked on mobile */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .detail-card {
+            padding: 3rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            color: var(--color-text-dark);
+        }
+
+        .card-blush {
+            background-color: var(--color-blush-bg);
+            border: 2px solid var(--color-blush);
+        }
+
+        .card-blue {
+            background-color: var(--color-blue-bg);
+            border: 2px solid var(--color-blue);
+        }
+
+        .detail-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
+        }
+
+        .detail-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- NEW ENTOURAGE LAYOUT (Based on Image) --- */
+        #entourage {
+            background: white;
+            /* Subtle floral pattern simulation via linear gradients or could be an image */
+            background-image: radial-gradient(circle at top left, var(--color-blush-bg) 0%, transparent 30%),
+                              radial-gradient(circle at bottom right, var(--color-blue-bg) 0%, transparent 30%);
+        }
+        
+        .entourage-header {
+            padding: 4rem 20px 1rem 20px;
+            text-align: center;
+        }
+
+        .entourage-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 4rem 20px;
+            text-align: center;
+        }
+
+        .entourage-role-title {
+            font-family: var(--font-script);
+            font-size: 2rem; /* Increased size for roles like in image */
+            color: var(--color-text-dark);
+            margin-bottom: 0.2rem;
+            margin-top: 2rem;
+        }
+
+        .entourage-names {
+            font-family: var(--font-sans); /* Clean font for names */
+            font-size: 1.1rem;
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        /* Special formatting for Bride & Groom top section */
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Two column layout for lists */
+        .entourage-two-col {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile stack */
+            gap: 1rem;
+        }
+
+        .col-item {
+            margin-bottom: 1rem;
+        }
+
+        /* Specific spacing helpers */
+        .mb-large { margin-bottom: 3rem; }
+        .mt-small { margin-top: 1rem; }
+
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .gallery-item {
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- MAP --- */
+        .map-wrapper {
+            padding: 0 20px 4rem 20px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: var(--shadow-card);
+        }
+        
+        iframe { width: 100%; height: 100%; border: 0; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 5px solid var(--color-gold);
+        }
+
+        /* --- LIGHTBOX --- */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox-img { max-width: 95%; max-height: 80%; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 2.5rem; cursor: pointer; color: var(--color-text-dark); }
+
+
+        /* =========================================
+           DESKTOP / TABLET OVERRIDES (Min-Width)
+           ========================================= */
+        @media (min-width: 768px) {
+            /* Typography */
+            body { font-size: 18px; }
+            .section-title { font-size: 2.8rem; }
+            .hero-content h1 { font-size: 5.5rem; }
+            
+            /* Container */
+            .container { max-width: 1100px; padding: 0 20px; }
+
+            /* Navigation */
+            .hamburger { display: none; }
+            .nav-links {
+                position: static;
+                height: auto;
+                flex-direction: row;
+                background: transparent;
+                width: auto;
+                box-shadow: none;
+                border: none;
+                gap: 3rem;
+            }
+            .nav-links li { 
+                opacity: 1; 
+                transform: none; 
+                margin: 0;
+            }
+
+            /* Details */
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            /* Entourage Columns */
+            .entourage-two-col {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+
+            /* Gallery */
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            
+            /* Map */
+            .map-container { height: 450px; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Audio / music -->
-  <div id="audio-controls">
-    <audio id="bg-music" loop preload="none">
-      <!-- Replace with your music file path -->
-      <source src="Audio/131 Kon Unsay Gihiusa sa Diyos.mp3" type="audio/mpeg" />
-      Your browser does not support audio.
-    </audio>
-    <button id="music-toggle" aria-label="Play/pause music">Play music</button>
-  </div>
 
-  <!-- Main invitation stage -->
-  <main id="invitation-stage">
-    <!-- Left (blue) and Right (pink) panels that form the envelope cover -->
-    <div class="envelope-panel left-panel" id="leftPanel" role="button" aria-label="Open left panel"></div>
-    <div class="envelope-panel right-panel" id="rightPanel" role="button" aria-label="Open right panel"></div>
-
-    <!-- Content inside the opened invitation -->
-    <section id="inside" aria-hidden="true">
-      <!-- center KR logo placeholder (you can replace with your PNG) -->
-      <div id="logo">
-        <!-- If you have a PNG "kr-logo.png", put it in images/ and change the src below -->
-        <img id="kr-logo" src="Images/kr.png" alt="K & R logo (replace with PNG)" />
-      </div>
-
-      <!-- Page container (horizontally scrollable pages) -->
-      <div id="pages" class="snap-x">
-        <!-- Page 1: Cover page -->
-        <article class="page cover-page">
-          <div class="cover-left">
-            <h1 class="names">Krijon<br>&amp;<br>Rose</h1>
-            <p class="invite-line">with full hearts, we joyfully invite you to their wedding</p>
-          </div>
-
-          <div class="cover-right">
-            <div class="date-stack">
-              <div class="date-num">12</div>
-              <div class="date-num highlight">16</div>
-              <div class="date-num">25</div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#home" class="logo">Krijon & Rose</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
             </div>
-          </div>
-
-          <!-- Polaroids scattered (absolute positioned) -->
-          <div class="polaroids" aria-hidden="true">
-            <div class="polaroid" style="--r:-6deg; left:6%; top:4%;">
-              <img src="Images/IMG_20251110_180127_704.jpg" alt="Polaroid 1" />
-            </div>
-            <div class="polaroid" style="--r:12deg; left:8%; top:20%;">
-              <img src="Images/IMG_20251110_180215_058.jpg (1)" alt="Polaroid 2" />
-            </div>
-            <div class="polaroid" style="--r:-10deg; left:2%; top:60%;">
-              <img src="Images/IMG_20251110_180425_483.jpg" alt="Polaroid 3" />
-            </div>
-            <div class="polaroid" style="--r:8deg; left:12%; top:76%;">
-              <img src="Images/photo_2025-11-11_03-16-36.jpg" alt="Polaroid 4" />
-            </div>
-          </div>
-        </article>
-
-        <!-- Page 2: Details & Entourage -->
-        <article class="page details-page" id="detailsPage">
-          <div class="details-inner">
-            <h2 class="section-title">Wedding Details</h2>
-            <div class="venue">
-              <h3>Venue</h3>
-              <p>Kingdom Hall of Jehovah's Witnesses<br>P-3 Apo Macote Malaybalay City</p>
-              <p><strong>Reception:</strong> P-5 Pangi-an Apo Macote Malaybalay City, Lacaba Residence</p>
-            </div>
-
-            <h3 class="section-title small">The Entourage</h3>
-            <div class="entourage">
-              <!-- Long list — scrollable vertically inside this page -->
-              <div class="entourage-column">
-                <p><strong>Groom</strong><br>Krijon Mark Alegata</p>
-                <p><strong>Bride</strong><br>Rose Lacaba</p>
-                <p><strong>Officiating Minister</strong><br>Deleitch Devera</p>
-                <p><strong>Speaker</strong><br>Levi Falliado</p>
-                <p><strong>Chairman</strong><br>Junimer Lacaba</p>
-                <p><strong>Opening Prayer</strong><br>Deleitch Devera</p>
-                <p><strong>Parents of the Groom</strong><br>Dennis & Marilyn Alegata</p>
-                <p><strong>Parents of the Bride</strong><br>Rolando & Cecily Lacaba</p>
-                <p><strong>Witnesses of the Groom</strong><br>Michael Rivera, Mizraim Rivera</p>
-                <p><strong>Witnesses of the Bride</strong><br>June Carlo Casinillo, Novy Grace Casinillo</p>
-                <p><strong>Bestman</strong><br>Steaven Dela Cruz</p>
-                <p><strong>Maid of Honor</strong><br>Dalia Lacaba</p>
-                <p><strong>Groomsmen</strong><br>Charry Jay Pescadero, Sam Lawrence Dadang, Adrian Salarda, Prince Gerald Alegata, Gindi Magdadaro, Wristen Ken Alegata</p>
-                <p><strong>Bridesmaids</strong><br>Cheril Cabigas, Cherian Cabigas, GLEZZIEL MANUEL, Lovely Grace Lacaba, Althea Salarda, Blessy Lacaba</p>
-                <p><strong>Flower Girls</strong><br>Xia Alegata, Apple Alegata, Jhemichi Myrtle Reyes, Kristel Manuel, Xyriel Jean Cuenca, Zhealen Fery Lacaba</p>
-                <p><strong>Ring Bearer</strong><br>Dion Vicariato</p>
-                <p><strong>Bible Bearer</strong><br>Cyrell James Cuenca</p>
-                <p><strong>Usher</strong><br>Carlou Tom Canales, Marjun Espinosa, Rameloyd Bonghanoy, Sidney Java, Juneriel Kim Montecillo, Kent Natividad, TJ Alegata, Earl John Alegata, John Dave Dadang, Ramil Micabalo, Neil Jade Pescadero</p>
-                <p><strong>Usherettes</strong><br>Charissa Sacal, Ivy Jane Sacal, Jainah Keight Rondon, Novem Rivera, Frenzy Quiño, Majolyn Asucan, Gwen Quiño, Khyziel Mae Salarda, Charlyn Hope Sabanal, Aivie Umol, Jerlyn Pitogo, Elma Micabalo</p>
-                <p><strong>Audio/Video</strong><br>Elson Vincent, Joe Torino, Jude Cutamora</p>
-                <p><strong>Director of the Ceremony</strong><br>Alex Bantilan, Razzia Jane Bantilan</p>
-                <p><strong>Director of the Feast</strong><br>Michael Micabalo</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right edge: more polaroids for visual balance (optional) -->
-          <aside class="right-polaroids" aria-hidden="true">
-            <div class="polaroid" style="--r:-4deg;">
-              <img src="Images/IMG_20251110_180306_811.jpg" alt="Polaroid a" />
-            </div>
-            <div class="polaroid" style="--r:6deg;">
-              <img src="Images/photo_2025-11-11_03-16-27.jpg" alt="Polaroid b" />
-            </div>
-          </aside>
-        </article>
-      </div>
-
-      <!-- Page navigation hint -->
-      <nav id="pager">
-        <button id="openBtn" class="cta">Open Invitation</button>
-        <div class="page-dots" aria-hidden="true">
-          <span class="dot active"></span>
-          <span class="dot"></span>
+            <ul class="nav-links">
+                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#details" onclick="toggleMenu()">Details</a></li>
+                <li><a href="#entourage" onclick="toggleMenu()">Entourage</a></li>
+                <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+            </ul>
         </div>
-      </nav>
-    </section>
-  </main>
+    </nav>
 
-  <script src="script.js" defer></script>
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="hero-content reveal">
+            <p class="hero-sub">We Are Getting Married</p>
+            <h1>Krijon & Rose</h1>
+            <div class="hero-date">December 16, 2025</div>
+            <p style="margin-top: 15px; font-style: italic; color: #666;">Bukidnon, Philippines</p>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section id="details" class="section-padding">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-subtitle">The Big Day</span>
+                <h2 class="section-title">Wedding Details</h2>
+            </div>
+
+            <div class="details-grid">
+                <!-- Ceremony -->
+                <div class="detail-card card-blush reveal">
+                    <h3>The Ceremony</h3>
+                    <p style="font-weight: bold; color: var(--color-blush-dark); margin-bottom: 5px;">9:00 AM</p>
+                    <p>Kingdom Hall of Jehovah’s Witnesses</p>
+                    <p style="font-size: 0.9rem; color: #777; margin-top: 5px;">Zone 1, Bugcaon, Lantapan, Bukidnon</p>
+                    
+                    <!-- Map Pin Button -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kingdom+Hall+of+Jehovah’s+Witnesses+Bugcaon+Lantapan" target="_blank" class="btn-map">
+                        <i class="fas fa-map-marker-alt"></i> View Map
+                    </a>
+                </div>
+
+                <!-- Reception -->
+                <div class="detail-card card-blue reveal">
+                    <h3>The Reception</h3>
+                    <p>Lacaba Residence</p>
+                    <p style="font-size: 0.9rem; color: #777; margin-top: 5px;">P-5 Pangi-an Apo Macote, Malaybalay City</p>
+                    
+                    <!-- Map Pin Button -->
+                    <a href="https://maps.app.goo.gl/hft256cTQxVkfSH88" target="_blank" class="btn-map">
+                        <i class="fas fa-map-marker-alt"></i> View Map
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entourage Section (Matches Image Format) -->
+    <section id="entourage" class="section-padding">
+        <div class="entourage-header reveal">
+             <!-- "The Entourage" is title in image, used script font here to match -->
+            <h2 class="section-subtitle" style="font-size: 3.5rem;">The Entourage</h2>
+        </div>
+
+        <div class="entourage-wrapper reveal">
+            
+            <!-- Groom & Bride Top Row -->
+            <div class="couple-grid">
+                <div>
+                    <div class="entourage-role-title">Groom</div>
+                    <div class="entourage-names">Krijon Mark Alegata</div>
+                </div>
+                <div>
+                    <div class="entourage-role-title">Bride</div>
+                    <div class="entourage-names">Rose Lacaba</div>
+                </div>
+            </div>
+
+            <!-- Solo Roles Center Stack -->
+            <div class="mb-large">
+                <div class="mt-small">
+                    <div class="entourage-role-title">Officiating Minister</div>
+                    <div class="entourage-names">Deleitch Devera</div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Speaker</div>
+                    <div class="entourage-names">Levi Falliado</div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Chairman</div>
+                    <div class="entourage-names">Junimer Lacaba</div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Opening Prayer</div>
+                    <div class="entourage-names">Dindo Magdadaro</div>
+                </div>
+            </div>
+
+            <!-- Paired Columns: Parents -->
+            <div class="entourage-two-col mb-large">
+                <div class="col-item">
+                    <div class="entourage-role-title">Parents of the Groom</div>
+                    <div class="entourage-names">
+                        Dennis Alegata<br>
+                        Marilyn Alegata
+                    </div>
+                </div>
+                <div class="col-item">
+                    <div class="entourage-role-title">Parents of the Bride</div>
+                    <div class="entourage-names">
+                        Rolando Lacaba<br>
+                        Cecily Lacaba
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paired Columns: Witnesses -->
+            <div class="entourage-two-col mb-large">
+                <div class="col-item">
+                    <div class="entourage-role-title">Witnesses of the Groom</div>
+                    <div class="entourage-names">
+                        Michel Rivera<br>
+                        Mizraim Rivera
+                    </div>
+                </div>
+                <div class="col-item">
+                    <div class="entourage-role-title">Witnesses of the Bride</div>
+                    <div class="entourage-names">
+                        June Carlo Casinillo<br>
+                        Novy Grace Casinillo
+                    </div>
+                </div>
+            </div>
+
+             <!-- Paired Columns: Best Man / MOH -->
+             <div class="entourage-two-col mb-large">
+                <div class="col-item">
+                    <div class="entourage-role-title">Bestman</div>
+                    <div class="entourage-names">
+                        Steaven Dela Cruz
+                    </div>
+                </div>
+                <div class="col-item">
+                    <div class="entourage-role-title">Maid of Honor</div>
+                    <div class="entourage-names">
+                        Dalia Lacaba
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paired Columns: Groomsmen / Bridesmaids -->
+            <div class="entourage-two-col mb-large">
+                <div class="col-item">
+                    <div class="entourage-role-title">Groomsmen</div>
+                    <div class="entourage-names">
+                        Charry Jay Pescadero<br>
+                        Sam Lawrence Dadang<br>
+                        Adrian Salarda<br>
+                        Prince Gerald Alegata<br>
+                        Gindi Magdadaro<br>
+                        Wristen Ken Alegata
+                    </div>
+                </div>
+                <div class="col-item">
+                    <div class="entourage-role-title">Bridesmaids</div>
+                    <div class="entourage-names">
+                        Cheril Cabigas<br>
+                        Cherian Cabigas<br>
+                        Glezziel Manuel<br>
+                        Lovely Grace Lacaba<br>
+                        Althea Salarda<br>
+                        Blessy Lacaba
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Stack: Kids -->
+            <div class="mb-large">
+                <div class="mt-small">
+                    <div class="entourage-role-title">Flower Girls</div>
+                    <div class="entourage-names">
+                        Xia Alegata<br>
+                        Apple Alegata<br>
+                        Jhemichi Myrtle Reyes<br>
+                        Kristel Manuel<br>
+                        Xyriel Jean Cuenca<br>
+                        Zhealen Fery Lacaba
+                    </div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Ring Bearer</div>
+                    <div class="entourage-names">Dion Vicariato</div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Bible Bearer</div>
+                    <div class="entourage-names">Cyrell James Cuenca</div>
+                </div>
+            </div>
+
+             <!-- Paired Columns: Ushers / Usherettes -->
+             <div class="entourage-two-col mb-large">
+                <div class="col-item">
+                    <div class="entourage-role-title">Ushers</div>
+                    <div class="entourage-names">
+                        Marjun Espinosa<br>
+                        Carlou Canales<br>
+                        Dello Galladora<br>
+                        Kenneth Gamolo<br>
+                        Jade Cutamora<br>
+                        James Lacaba<br>
+                        Jazelrey Eblamo<br>
+                        Kris Bicar<br>
+                        Ramelloyd Bonghanoy<br>
+                        Ramil Micabalo<br>
+                        Rey Journ Bicar
+                    </div>
+                </div>
+                <div class="col-item">
+                    <div class="entourage-role-title">Usherettes</div>
+                    <div class="entourage-names">
+                        Aivie Omul<br>
+                        Charissa Sacal<br>
+                        Charlyn Hope Sabanal<br>
+                        Chezy Dadang<br>
+                        Clarence Cabigas<br>
+                        Frenzy Quiño<br>
+                        Gwynne Eblamo<br>
+                        Ivy Jane Sacal<br>
+                        Jainah Keight Rondon<br>
+                        Kathy Omul<br>
+                        Khiezyl Mae Salarda<br>
+                        Marjolyn Asucan<br>
+                        Princess Rivera
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Stack: Production -->
+            <div class="mb-large">
+                <div class="mt-small">
+                    <div class="entourage-role-title">Audio/Video</div>
+                    <div class="entourage-names">
+                        Elson Vincent<br>
+                        Joe Torino<br>
+                        Jude Cutamora
+                    </div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Director of the Ceremony</div>
+                    <div class="entourage-names">
+                        Alex Bantilan<br>
+                        Razzia Jane Bantilan
+                    </div>
+                </div>
+                <div class="mt-small">
+                    <div class="entourage-role-title">Director of the Feast</div>
+                    <div class="entourage-names">Michael Micabalo</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 2rem;">
+                <span class="section-subtitle">Moments</span>
+                <h2 class="section-title">Prenup Gallery</h2>
+            </div>
+
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_175903_699.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_180342_317.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_180101_861.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_180136_410.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_180425_483.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="Images/IMG_20251110_180306_811.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section-padding" style="background-color: #fafafa;">
+        <div class="text-center reveal" style="margin-bottom: 2rem;">
+            <h2 class="section-title">The Location</h2>
+            <p>Bukidnon, Philippines</p>
+        </div>
+        <div class="container map-wrapper reveal">
+            <div class="map-container">
+                <!-- Centered on Malaybalay City/Lantapan Area General Coordinates -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252667.5865599308!2d124.99784009540106!3d8.126654926993168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ff0e2d74350557%3A0x403050d18d1e6b12!2sMalaybalay%2C%20Bukidnon!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h2 style="font-family: var(--font-script); font-size: 2.5rem; color: var(--color-text-dark);">Krijon & Rose</h2>
+            <p style="color: #888; font-size: 0.9rem; margin-top: 10px;">December 16, 2025 • Bukidnon, Philippines</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" src="" alt="Zoomed Image">
+    </div>
+
+    <script>
+        // --- TOGGLE MOBILE MENU ---
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // --- SCROLL REVEAL ---
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
+        // Trigger once on load
+        window.dispatchEvent(new Event('scroll'));
+
+        // --- LIGHTBOX ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const imgs = document.querySelectorAll('.gallery-item img');
+
+        imgs.forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = "flex";
+                setTimeout(() => lightbox.classList.add('active'), 10);
+                lightboxImg.src = img.src;
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => lightbox.style.display = "none", 300);
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) closeLightbox();
+        });
+    </script>
 </body>
 </html>
