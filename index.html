@@ -264,6 +264,43 @@
             margin-top: 1rem;
             background: rgba(255,255,255,0.8);
         }
+        /* --- COUNTDOWN STYLES --- */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 10px;
+            min-width: 70px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .countdown-number {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--color-text-dark);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            margin-top: 5px;
+        }
 
         /* --- DETAILS SECTION (Color Cards) --- */
         .details-grid {
@@ -503,7 +540,28 @@
             <h1>Krijon & Rose</h1>
             <div class="hero-date">December 16, 2025</div>
             <p style="margin-top: 15px; font-style: italic; color: #666;">Bukidnon, Philippines</p>
+
+            <!-- Countdown Timer -->
+            <div id="countdown" class="countdown-container">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label">Hrs</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label">Mins</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-label">Secs</span>
+                </div>
+            </div>
         </div>
+        
     </section>
 
     <!-- Details Section -->
@@ -830,6 +888,31 @@
         });
         // Trigger once on load
         window.dispatchEvent(new Event('scroll'));
+        // --- COUNTDOWN TIMER ---
+        const weddingDate = new Date("December 16, 2025 09:00:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<div class='countdown-number' style='font-size:1.5rem;'>The Big Day Is Here!</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        };
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run immediately
 
         // --- LIGHTBOX ---
         const lightbox = document.getElementById('lightbox');
